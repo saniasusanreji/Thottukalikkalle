@@ -2,8 +2,8 @@
 Team Name: Zenflow
 
 Team Members:
-member1- sania susan regi,
-member2-aiswarya mariya rose
+member1- Sania Susan Reji,
+member2-Aiswarya Mariya Rose
 
 Project Description
  enne tottu kaikalle akalli tikali sushichoo is a trash talking plant which 

@@ -13,50 +13,103 @@ The Solution (that nobody asked for)
  Give the plant a mood system with voice complaints so it can shout in Malayalam (or any language) when it’s touched too much or ignored for too long.
 
 Technical Details 
-Microcontroller: ESP32 (handles sensors, Wi-Fi, and communication)
-Sensors: IR proximity sensor  (detects interaction)
-Display: OLED screen (shows mood and emoji)
-Audio Output: Laptop uses Python pyttsx3 to convert received text to speech
-Control Logic: C++ code on ESP32 sends mood updates or gossip messages to MQTT broker
-Defense: Relay + water pump triggers when plant is annoyed
+The project uses an ESP32-WROOM-32 microcontroller to detect human proximity with a TCRT5000 IR sensor. When a hand is detected repeatedly within a set range, the system changes the plant's "mood" displayed on a 0.96-inch OLED screen, plays corresponding audio responses from an SD card audio module, and, upon high irritation levels, activates a relay-controlled water pump for auto-defense mode.
+Key functionalities:
+IR Proximity Detection – Senses hand presence within 4 cm.
+Mood Tracking – Count-based mood changes (happy → irritated → angry).
+Audio Feedback – Plays random complaint MP3 files at higher counts.
+OLED Display – Shows mood emojis in real time.
+Water Pump Activation – Triggered when maximum irritation count is reached.
+Timed Reset – Mood and count reset automatically after 1 minute.
 
 Technologies/Components Used
-Microcontroller: ESP32 (handles sensors, Wi-Fi, and communication)
-Sensors: IR proximity sensor  (detects interaction)
-Display: OLED screen (shows mood and emoji)
-Audio Output: Laptop uses Python pyttsx3 to convert received text to speech
-Control Logic: C++ code on ESP32 sends mood updates or gossip messages to MQTT broker
-Defense: Relay + water pump triggers when plant is annoyed
-
-
-For Software:
+ESP32-WROOM-32 – Main microcontroller handling all logic and control.
+TCRT5000 IR Sensor – Proximity detection within ~4 cm.
+0.96" OLED Display (SSD1306) – Visual mood indicators using emojis.
+MicroSD Card Module + DFPlayer Mini – MP3 audio playback for plant responses.
+Relay Module – Controls water pump activation.
+Mini Water Pump – Auto-defense mode spray when irritation level maxes out.
+Arduino IDE – Code development and flashing to ESP32.
+C++ / Arduino Core – Programming language for system logic.
 Languages used:C++ (Arduino) and Python
 Frameworks used-Arduino IDE 
 Libraries used-ESP32
 pyttsx3 (Python text-to-speech)
 
 Tools used
-For Hardware:
-main components
- ESP32 microcontroller
+ESP32 microcontroller
 OLED display (I2C)
- IR proximity sensor
+IR proximity sensor
 Relay module
 Mini water pump (with red & black power wires)
 Jumper wires
 Breadboard or PCB
-Power source (USB or external
+Power source (USB)
+Arduino IDE 
+Git & GitHub 
+VS Code 
 
 List specifications
- 
-ESP32	240 MHz dual-core, 520 KB SRAM, built-in Wi-Fi
-Python Version	3.8+ 
-Text-to-Speech	pyttsx3 library (offline)
-Power Supply	USB 5V for ESP32
-Response Time	< 1 sec for short text
-
+1. ESP32-WROOM-32
+Microcontroller: Tensilica Xtensa LX6 dual-core (up to 240 MHz)
+Flash Memory: 4 MB
+SRAM: 520 KB
+Wi-Fi: 802.11 b/g/n
+Bluetooth: v4.2 BR/EDR and BLE
+GPIO Pins: 34 (ADC, DAC, PWM capable)
+Operating Voltage: 3.0 V–3.6 V
+USB Interface: Micro USB for programming and power
+Power Consumption: ~160 mA active
+2. TCRT5000 IR Sensor Module
+Detection Range: 2 mm – 15 mm (adjustable)
+Operating Voltage: 3.3 V–5 V
+Output Type: Digital & Analog
+Wavelength: 950 nm IR LED
+Response Time: < 1 ms
+Applications: Proximity, line tracking, object detection
+3. TTP223 Capacitive Touch Sensor
+Operating Voltage: 2.0 V–5.5 V
+Output: Digital high (touch detected), low (no touch)
+Sensitivity: Adjustable via external capacitor
+Response Time: ~60 ms
+Touch Surface: PCB pad
+4. OLED Display (SSD1306)
+Resolution: 128×64 pixels
+Display Type: Monochrome OLED
+Interface: I²C (SDA, SCL)
+Operating Voltage: 3.3 V–5 V
+Power Consumption: < 20 mA (typical)
+Viewing Angle: >160°
+5. Relay Module (Single Channel)
+Trigger Voltage: 3.3 V (compatible with ESP32)
+Load Voltage: AC 250 V / DC 30 V max
+Load Current: Up to 10 A
+Isolation: Optocoupler for MCU protection
+Indicator LED: Shows relay status
+6. DFPlayer Mini MP3 Module
+Supported Formats: MP3, WAV
+Storage: MicroSD card (up to 32 GB)
+Operating Voltage: 3.2 V–5 V
+Audio Output: DAC, Speaker (8Ω 3W)
+Control Method: Serial UART
+7. Mini Water Pump
+Operating Voltage: DC 3–6 V
+Flow Rate: 80–120 L/h
+Current: 130–220 mA
+Lift Height: Up to 1.1 m
+Pump Type: Submersible
+8. Li-ion Battery
+Type: 18650 Rechargeable Cell
+Nominal Voltage: 3.7 V
+Capacity: 2000–3000 mAh
+Protection Circuit: Recommended for overcharge/discharge protection
+9. Tools
+Arduino IDE – Code development and uploading
+Git & GitHub – Version control and collaboration
+Serial Monitor – Debugging output
+MicroSD Formatter – Preparing audio storage
+VS Code (optional) – Advanced editing and Git integration
 List tools required
-
 Arduino IDE (to upload ESP32 code)
 Python Installed (on laptop — python.org)
 VS Code (for writing and running Python scripts)
@@ -76,22 +129,14 @@ For Python: pyttsx3 (install with pip install pyttsx3)
 
 
 Implementation
-For Software:
-ESP32: Arduino IDE → install ESP32 board + WiFi, PubSubClient, OLED libraries → upload code for sensors, OLED, MQTT, pump.
-Laptop: Install Python → pip install paho-mqtt pyttsx3 → run gossip script.
-MQTT: Use same broker & topic for ESP32 and laptop.
-Installation
- Arduino IDE: Add ESP32 board URL → install required libraries.
-Python: Install from python.org → in terminal run pip install paho-mqtt pyttsx3.
-MQTT Broker: Use free broker like test.mosquitto.org or install Mosquitto loc
-Run
- ESP32: Upload Arduino gossip code via Arduino IDE.
-Laptop: Open terminal → run python gossip.py.
-Both must be connected to the same Wi-Fi and MQTT broker.
-Project Documentation
-For Software:
-
-Screenshots (Add at least 3)
+The project is implemented by integrating hardware components (ESP32 microcontroller, IR sensor, relay module, OLED display, and audio module) with Arduino IDE programming to create an interactive system.
+Sensing – The IR sensor detects the proximity of a hand within a set range (e.g., 4 cm).
+Logic Processing – The ESP32 receives this sensor input, processes it, and keeps a count of detections. Based on the count, it changes the system’s “mood,” triggers sound files, and controls other actions.
+Display Feedback – The OLED display visually shows mood changes using emojis or text, giving real-time feedback to the user.
+Audio Feedback – The DFPlayer Mini or MP3 module plays different pre-recorded audio files depending on the detection count.
+Action Trigger – At a high count threshold, the relay module is activated to run the water pump, adding a playful “defense” mechanism to the system.
+Reset Mechanism – After a set time (e.g., 1 minute), the mood and detection count automatically reset to the default state.
+This combination of sensor detection, programmed logic, and interactive feedback makes the system responsive, entertaining, and easy to understand.
 
 ![1](https://github.com/user-attachments/assets/cde9d301-9164-4ca3-9e18-06652a1196c4)
 

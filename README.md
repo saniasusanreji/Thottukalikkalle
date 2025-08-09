@@ -93,16 +93,14 @@ For Software:
 
 Screenshots (Add at least 3)
 
-Dia![1](https://github.com/user-attachments/assets/cde9d301-9164-4ca3-9e18-06652a1196c4)
-grams
+![1](https://github.com/user-attachments/assets/cde9d301-9164-4ca3-9e18-06652a1196c4)
+
 ![Workflow](Add your workflow/architecture diagram here) Add caption explaining your workflow
 
 For Hardware:
 
-Schematic & Circuit
-![Circuit](Add your circuit diagram here) Add caption explaining connections
+![circuit](https://github.com/user-attachments/assets/c3be8741-9bee-4d1e-ae3f-86d952163312)
 
-![Schematic](Add your schematic diagram here) Add caption explaining the schematic
 
 Build Photos
 ![1](https://github.com/user-attachments/assets/05f61f18-3576-4f34-81d5-f3c07a7ecd6d)
@@ -110,14 +108,17 @@ Build Photos
 
 ![1](https://github.com/user-attachments/assets/45fb2945-5b83-4491-8998-6e42584460c3)
 
+![circuit](https://github.com/user-attachments/assets/83f2a13e-b506-48bc-b482-94d82b43ae39)
 
-![Final](Add photo of final product here) Explain the final build
 
 Project Demo
 Video
-[Add your demo video link here] Explain what the video demonstrates
 
-Additional Demos
-[Add any extra demo materials/links]
+
+https://github.com/user-attachments/assets/42e0e45d-d75e-4293-a22a-5d03dc31e5f9
+
+
+
+
 
  
